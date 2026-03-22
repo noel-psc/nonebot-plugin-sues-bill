@@ -116,7 +116,7 @@ def recognize_captcha(image_content):
     try:
         img = Image.open(io.BytesIO(image_content))
         img = img.convert('L')
-        img = img.point(lambda x: 0 if x < 128 else 255, '1')
+        img = img.point(lambda x: 0 if cast(int, x) < 128 else 255, '1')
         captcha = image_to_string(img, config='--psm 7 -c tessedit_char_whitelist=0123456789')
         captcha = captcha.strip()
         return captcha if captcha else None
